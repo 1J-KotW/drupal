@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Factory Bridge module file.
+ */
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function factory_bridge_install() {
+  // Create the factory_report content type.
+  $node_type = NodeType::create([
+    'type' => 'factory_report',
+    'name' => 'Factory Report',
+    'description' => 'Report for factory orders.',
+  ]);
+  $node_type->save();
+
+  // Create field storage for internal_id.
+  $field_storage = FieldStorageConfig::create([
+    'field_name' => 'field_internal_id',
+    'entity_type' => 'node',
+    'type' => 'string',
+  ]);
+  $field_storage->save();
+
+  // Create field instance.
+  $field = FieldConfig::create([
+    'field_name' => 'field_internal_id',
+    'entity_type' => 'node',
+    'bundle' => 'factory_report',
+    'label' => 'Internal ID',
+  ]);
+  $field->save();
+}
+
+/**
+ * Implements hook_theme().
+ */
+function factory_bridge_theme() {
+  return [
+    'factory_bridge_report' => [
+      'variables' => [
+        'report_data' => [],
+        'internal_id' => '',
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_cron().
+ */
+function factory_bridge_cron() {
+  $storage = \Drupal::service('factory_bridge.report_storage');
+  $storage->updateReports();
+}

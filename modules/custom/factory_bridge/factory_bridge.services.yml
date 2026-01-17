@@ -1,0 +1,9 @@
+services:
+  factory_bridge.sqlite_reader:
+    class: Drupal\factory_bridge\Service\SQLiteReader
+  factory_bridge.report_calculator:
+    class: Drupal\factory_bridge\Service\ReportCalculator
+    arguments: ['@factory_bridge.sqlite_reader']
+  factory_bridge.report_storage:
+    class: Drupal\factory_bridge\Service\ReportStorage
+    arguments: ['@entity_type.manager', '@factory_bridge.sqlite_reader', '@factory_bridge.report_calculator']

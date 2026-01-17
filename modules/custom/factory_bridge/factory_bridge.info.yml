@@ -1,0 +1,5 @@
+name: Factory Bridge
+type: module
+description: 'Bridge module for importing data from SQLite to Drupal'
+core_version_requirement: ^10 || ^11
+package: Custom

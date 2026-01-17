@@ -1,0 +1,7 @@
+factory_bridge.report:
+  path: '/factory-bridge/report/{internal_id}'
+  defaults:
+    _controller: '\Drupal\factory_bridge\Controller\ReportController::report'
+    _title: 'Factory Report'
+  requirements:
+    _permission: 'access content'

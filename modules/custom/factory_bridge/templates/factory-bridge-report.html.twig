@@ -1,0 +1,22 @@
+<h1>Factory Report for {{ internal_id }}</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Код операции</th>
+      <th>НЧ План</th>
+      <th>Ч Факт</th>
+      <th>Дельта</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in report_data %}
+      <tr>
+        <td>{{ item.task_code }}</td>
+        <td>{{ item.plan }}</td>
+        <td>{{ item.fact }}</td>
+        <td>{{ item.delta }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
